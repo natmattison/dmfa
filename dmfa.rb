@@ -7,10 +7,11 @@ require 'slim'
 
 require_relative './models'
 
-DB_CONFIG = YAML.load_file('database.yml')
+# DB_CONFIG = YAML.load_file('database.yml')
 
 class Dmfa < Sinatra::Application
-  set :database, "postgres://#{DB_CONFIG['username']}:#{DB_CONFIG['password']}@#{DB_CONFIG['host']}:#{DB_CONFIG['port']}/#{DB_CONFIG['database']}"
+  ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
+  # set :database, "postgres://#{DB_CONFIG['username']}:#{DB_CONFIG['password']}@#{DB_CONFIG['host']}:#{DB_CONFIG['port']}/#{DB_CONFIG['database']}"
 
   get '/' do
     slim :index
