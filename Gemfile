@@ -1,0 +1,17 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'json'
+gem 'redis'
+gem 'rspec'
+gem 'rack-test'
+gem 'mysql'
+gem 'activerecord', "4.0.0"
+gem 'sinatra-activerecord'
+gem 'slim'
+gem 'pony'
+gem 'logging'
+gem 'rest-client'
+gem 'httparty'
+gem 'rake'
+gem 'pg'
