@@ -10,9 +10,7 @@ require_relative './models'
 DB_CONFIG = YAML.load_file('database.yml')
 
 class Dmfa < Sinatra::Application
-  set :database, "postgres://fbysmhjjurkcgl:V2VvQwYCgZ__L8ED8CQj1GQS1Q@ec2-54-83-9-127.compute-1.amazonaws.com:5432/d6o9rifikcm9e0"
-
-  # "mysql://#{DB_CONFIG['username']}:#{DB_CONFIG['password']}@#{DB_CONFIG['host']}:#{DB_CONFIG['port']}/#{DB_CONFIG['database']}"
+  set :database, "postgres://#{DB_CONFIG['username']}:#{DB_CONFIG['password']}@#{DB_CONFIG['host']}:#{DB_CONFIG['port']}/#{DB_CONFIG['database']}"
 
   get '/' do
     slim :index
