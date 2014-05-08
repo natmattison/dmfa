@@ -31,12 +31,26 @@ class Dmfa < Sinatra::Application
   end  
 
   get '/gallery' do
+    @paintings = Painting.all
     slim :gallery
   end
   
   get '/detail/:id' do
     @painting = Painting.find(params[:id])
     slim :detail
+  end
+  
+  post '/painting/new' do
+    # check auth?
+
+    name = params[:name]
+    length = params[:length]
+    width = params[:width]
+    description = params[:description]
+    painting = Painting.new(name: name, length: length, width: width, description: description)
+    painting.save!
+    status 200
+    body 'ok'
   end
 
   run! if app_file == $0
