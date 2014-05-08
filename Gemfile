@@ -5,7 +5,6 @@ gem 'json'
 gem 'redis'
 gem 'rspec'
 gem 'rack-test'
-gem 'mysql'
 gem 'activerecord', "4.0.0"
 gem 'sinatra-activerecord'
 gem 'slim'

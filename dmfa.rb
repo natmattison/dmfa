@@ -2,7 +2,6 @@ require 'sinatra'
 require 'json'
 require 'yaml'
 require 'httparty'
-require 'mysql'
 require 'sinatra/activerecord'
 require 'slim'
 
