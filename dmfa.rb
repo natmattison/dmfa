@@ -23,10 +23,12 @@ class Dmfa < Sinatra::Application
 # 
 
   get '/about' do
-    slim :index
+    @about_active = "active"
+    slim :about
   end
 
   get '/reproductions' do
+    @reproductions_active = "active"
     slim :reproductions
   end
   
@@ -35,11 +37,13 @@ class Dmfa < Sinatra::Application
   end  
 
   get '/gallery' do
+    @gallery_active = "active"
     @paintings = Painting.all
     slim :gallery
   end
   
   get '/detail/:id' do
+    @gallery_active = "active"
     @painting = Painting.find(params[:id])
     slim :detail
   end
@@ -54,6 +58,14 @@ class Dmfa < Sinatra::Application
     s3_url = params[:s3_url]
     painting = Painting.new(name: name, length: length, width: width, description: description, s3_url: s3_url)
     painting.save!
+    status 200
+    body 'ok'
+  end
+
+  delete '/painting/:id' do
+    # check auth?
+    p = Painting.find(params[:id])
+    p.destroy!
     status 200
     body 'ok'
   end

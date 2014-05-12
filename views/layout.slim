@@ -3,6 +3,7 @@ html
   head
     script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
     link href="/bootstrap.min.css" rel="stylesheet" type="text/css"
+    link href="/style.css" rel="stylesheet" type="text/css"
     title Debbie Mattison Fine Art
 
   body
@@ -10,20 +11,15 @@ html
     
       div class="container-fluid"
       div class="navbar-header"
-        button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-          span class="sr-only" Toggle navigation
-          span class="icon-bar"
-          span class="icon-bar"
-          span class="icon-bar"
-        a class="navbar-brand" href="#" Debbie Mattison Fine Art
+        a class="navbar-brand" href="#{@base_url}/" Debbie Mattison Fine Art
 
       div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
         ul class="nav navbar-nav"
-          li class="active"
+          li class="#{@about_active}"
             a href="#{@base_url}/about" About
-          li class=""
+          li class="#{@gallery_active}"
             a href="#{@base_url}/gallery" Gallery
-          li 
+          li class="#{@reproductions_active}"
             a href="#{@base_url}/reproductions" Reproductions
 
     div#content
