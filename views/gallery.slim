@@ -1,5 +1,6 @@
 - @paintings.each do |p|
-  a href="detail/#{p.id}" #{p.name}
-  p #{p.description}
-  p #{p.length} inches by #{p.width} inches
+  a href="detail/#{p.id}"
+    - if p.s3_url
+      img src="#{p.s3_url}" height=300 width=400
+  p #{p.name}
   p -----

@@ -18,6 +18,9 @@ class Dmfa < Sinatra::Application
   end
 
 # 404.html  about.html  base.html  commissions.html  contact.html  detail.html  error.html  gallery.html  index.html  reproductions.html  test.html
+# acrylic | oil
+# categories <--
+# 
 
   get '/about' do
     slim :index
@@ -48,7 +51,8 @@ class Dmfa < Sinatra::Application
     length = params[:length]
     width = params[:width]
     description = params[:description]
-    painting = Painting.new(name: name, length: length, width: width, description: description)
+    s3_url = params[:s3_url]
+    painting = Painting.new(name: name, length: length, width: width, description: description, s3_url: s3_url)
     painting.save!
     status 200
     body 'ok'
