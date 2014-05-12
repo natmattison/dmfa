@@ -69,6 +69,18 @@ class Dmfa < Sinatra::Application
     status 200
     body 'ok'
   end
+  
+  post '/painting/update/:id' do
+    p = Painting.find(params[:id])
+    p.name = params[:name] ? params[:name] : p.name
+    p.length = params[:length] ? params[:length] : p.length
+    p.width = params[:width] ? params[:width] : p.width
+    p.s3_url = params[:s3_url] ? params[:s3_url] : p.s3_url
+    p.description = params[:description] ? params[:description] : p.description
+    p.save!
+    status 200
+    body 'updated!'
+  end
 
   run! if app_file == $0
 

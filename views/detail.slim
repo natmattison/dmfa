@@ -1,9 +1,9 @@
 .container
   div.row
     div.col-md-8
-      img src="#{@painting.s3_url}"
+      img src="#{@painting.s3_url}" style="max-width: 650px"
     div.col-md-4
-      p #{@painting.name}
+      .title #{@painting.name}
       - if @painting.length
         p #{@painting.length} inches by #{@painting.width} inches
       - if @painting.description
