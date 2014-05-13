@@ -1,0 +1,34 @@
+h3 Add New Painting
+.container
+  .row
+    .col-md-6
+      form role="form" action="painting/new" enctype="multipart/form-data" method="post" accept-charset="utf-8"
+        div class="form-group" 
+          label for="name" Name
+          input type="text" class="form-control" id="name" name="name"
+        div class="form-group" 
+          label for="description" Description
+          input type="text" class="form-control" id="description" name="description"
+        div class="form-group" 
+          label for="length" Length
+          input type="text" class="form-control" id="length" name="length"
+        div class="form-group" 
+          label for="width" Width
+          input type="text" class="form-control" id="width" name="width"
+        div class="form-group" 
+          label for="medium" Medium
+          select class="form-control" id="medium" name="medium"
+            - @mediums.each do |c|
+              option value="#{c}" 
+                #{c}
+        div class="form-group" 
+          label for="category" Category
+          select class="form-control" id="category" name="category"
+            - @categories.each do |c|
+              option value="#{c}" 
+                #{c}
+        div class="form-group" 
+          label for="image" Upload Image
+          input type="file" id="image" name="image"
+          
+        button type="submit" class="btn btn-default" Submit

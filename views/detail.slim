@@ -4,6 +4,10 @@
       img src="#{@painting.s3_url}" style="max-width: 650px"
     div.col-md-4
       .title #{@painting.name}
+      - if @painting.medium
+        div #{@painting.medium}
+      - if @painting.category
+        div #{@painting.category}
       - if @painting.length
         p #{@painting.length} inches by #{@painting.width} inches
       - if @painting.description

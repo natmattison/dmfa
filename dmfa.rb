@@ -4,6 +4,7 @@ require 'yaml'
 require 'httparty'
 require 'sinatra/activerecord'
 require 'slim'
+require 'aws/s3'
 
 require_relative './models'
 
@@ -48,15 +49,43 @@ class Dmfa < Sinatra::Application
     slim :detail
   end
   
+  get '/supersecret-admin' do
+    @mediums = ['Oil', 'Acrylic']
+    @categories = ['Landscape', 'Portrait', 'Still Life', 'Study']
+    slim :admin
+  end
+  
   post '/painting/new' do
     # check auth?
+    
+    file       = params['image'][:tempfile]
+    filename   = params['image'][:filename]
+    
+    bucket = ENV['S3_BUCKET_NAME']
+    
+    AWS::S3::Base.establish_connection!(
+      :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
+    )
+    
+    AWS::S3::DEFAULT_HOST.replace('s3-us-west-2.amazonaws.com')
+    
+    AWS::S3::S3Object.store(
+      filename,
+      open(file.path),
+      bucket,
+      :access => :public_read
+    )
+    s3_url = "https://#{bucket}.s3.amazonaws.com/#{filename}"
 
     name = params[:name]
     length = params[:length]
     width = params[:width]
     description = params[:description]
-    s3_url = params[:s3_url]
-    painting = Painting.new(name: name, length: length, width: width, description: description, s3_url: s3_url)
+    category = params[:category]
+    medium = params[:medium]
+    s3_url = s3_url
+    painting = Painting.new(name: name, length: length, width: width, description: description, category: category, medium: medium, s3_url: s3_url)
     painting.save!
     status 200
     body 'ok'
