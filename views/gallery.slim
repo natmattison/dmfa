@@ -1,14 +1,4 @@
-/ .container-fluid
-/ - @paintings.each_slice(3) do |set|
-/   .row
-/     - set.each do |p|
-/       .col-md-4
-/         a href="detail/#{p.id}"
-/           - if p.s3_url
-/             img src="#{p.s3_url}" height=300
-/         p #{p.name}
-- @paintings.each do |p|
-  .painting
-    a href="detail/#{p.id}"
-      img src="#{p.s3_url}" height=300
-    p #{p.name}
+- @categories.each do |c|
+  div
+    a href="#{@base_url}/gallery/#{c}"
+      h3 #{c}

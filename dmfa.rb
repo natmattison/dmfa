@@ -39,10 +39,20 @@ class Dmfa < Sinatra::Application
 
   get '/gallery' do
     @gallery_active = "active"
-    @paintings = Painting.all
+    # @paintings = Painting.all
+    @categories = Painting.pluck(:category).uniq
     slim :gallery
   end
-  
+
+  get '/gallery/:category' do
+    @gallery_active = "active"
+    @category = params[:category]
+    # @paintings = Painting.where(category: @category)
+    @paintings = Painting.where('category ILIKE ?', @category)
+    @category = "Nothing in this category." if @paintings.empty?
+    slim :gallery_cat
+  end
+
   get '/detail/:id' do
     @gallery_active = "active"
     @painting = Painting.find(params[:id])
@@ -105,6 +115,8 @@ class Dmfa < Sinatra::Application
     p.length = params[:length] ? params[:length] : p.length
     p.width = params[:width] ? params[:width] : p.width
     p.s3_url = params[:s3_url] ? params[:s3_url] : p.s3_url
+    p.category = params[:category] ? params[:category] : p.category
+    p.medium = params[:medium] ? params[:medium] : p.medium
     p.description = params[:description] ? params[:description] : p.description
     p.save!
     status 200
