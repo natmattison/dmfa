@@ -66,8 +66,11 @@ class Dmfa < Sinatra::Application
   end
   
   post '/painting/new' do
-    # check auth?
-    
+    # i hate myself
+    unless params[:password] == 'sassy'
+      status 400
+      return 'unauthorized'
+    end    
     file       = params['image'][:tempfile]
     filename   = params['image'][:filename]
     
@@ -102,7 +105,23 @@ class Dmfa < Sinatra::Application
   end
 
   delete '/painting/:id' do
-    # check auth?
+    # i hate myself
+    unless params[:password] == 'sassy'
+      status 400
+      return 'unauthorized'
+    end
+    p = Painting.find(params[:id])
+    p.destroy!
+    status 200
+    body 'ok'
+  end
+  
+  post '/painting/delete' do
+    # i hate myself
+    unless params[:password] == 'sassy'
+      status 400
+      return 'unauthorized'
+    end
     p = Painting.find(params[:id])
     p.destroy!
     status 200
