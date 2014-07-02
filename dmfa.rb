@@ -40,7 +40,9 @@ class Dmfa < Sinatra::Application
   get '/gallery' do
     @gallery_active = "active"
     # @paintings = Painting.all
-    @categories = Painting.pluck(:category).uniq
+    categories = Painting.pluck(:category).uniq
+    @samples = categories.map {|c| [c, Painting.where(category: c).pluck(:s3_url).sample] }
+    
     slim :gallery
   end
 
@@ -67,7 +69,7 @@ class Dmfa < Sinatra::Application
   
   post '/painting/new' do
     # i hate myself
-    unless params[:password] == 'sassy'
+    unless params[:password] == ENV['ADMIN_PASS']
       status 400
       return 'unauthorized'
     end    
@@ -98,6 +100,7 @@ class Dmfa < Sinatra::Application
     category = params[:category]
     medium = params[:medium]
     s3_url = s3_url
+    # return status 500 unless name && length && width && description && category && medium && s3_url
     painting = Painting.new(name: name, length: length, width: width, description: description, category: category, medium: medium, s3_url: s3_url)
     painting.save!
     status 200
@@ -106,19 +109,20 @@ class Dmfa < Sinatra::Application
 
   delete '/painting/:id' do
     # i hate myself
-    unless params[:password] == 'sassy'
+    unless params[:password] == ENV['ADMIN_PASS']
       status 400
       return 'unauthorized'
     end
     p = Painting.find(params[:id])
     p.destroy!
+    # todo delete from s3 DERP!!!!!!
     status 200
     body 'ok'
   end
   
   post '/painting/delete' do
     # i hate myself
-    unless params[:password] == 'sassy'
+    unless params[:password] == ENV['ADMIN_PASS']
       status 400
       return 'unauthorized'
     end
