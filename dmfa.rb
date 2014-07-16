@@ -57,7 +57,11 @@ class Dmfa < Sinatra::Application
 
   get '/detail/:id' do
     @gallery_active = "active"
-    @painting = Painting.find(params[:id])
+    @painting = Painting.find_by_id(params[:id])
+    unless @painting.exists?
+      status 404
+      return "Can't find that"
+    end
     slim :detail
   end
   
@@ -68,7 +72,6 @@ class Dmfa < Sinatra::Application
   end
   
   post '/painting/new' do
-    # i hate myself
     unless params[:password] == ENV['ADMIN_PASS']
       status 400
       return 'unauthorized'
@@ -113,27 +116,30 @@ class Dmfa < Sinatra::Application
       status 400
       return 'unauthorized'
     end
-    p = Painting.find(params[:id])
-    p.destroy!
+    p = Painting.find_by_id(params[:id])
+    p.destroy! if p.exists?
     # todo delete from s3 DERP!!!!!!
     status 200
     body 'ok'
   end
   
   post '/painting/delete' do
-    # i hate myself
     unless params[:password] == ENV['ADMIN_PASS']
       status 400
       return 'unauthorized'
     end
-    p = Painting.find(params[:id])
-    p.destroy!
+    p = Painting.find_by_id(params[:id])
+    p.destroy! if p.exists?
     status 200
     body 'ok'
   end
   
   post '/painting/update/:id' do
-    p = Painting.find(params[:id])
+    p = Painting.find_by_id(params[:id])
+    unless p.exists?
+      status 400
+      return "can't find that"
+    end
     p.name = params[:name] ? params[:name] : p.name
     p.length = params[:length] ? params[:length] : p.length
     p.width = params[:width] ? params[:width] : p.width

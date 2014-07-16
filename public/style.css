@@ -2,6 +2,11 @@
   padding: 15px;
 }
 
+#footer {
+  float: right;
+  margin: 25px;
+}
+
 .title {
   font-size: 24px;
   font-style: italic;
