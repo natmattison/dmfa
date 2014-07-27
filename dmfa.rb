@@ -58,7 +58,7 @@ class Dmfa < Sinatra::Application
   get '/detail/:id' do
     @gallery_active = "active"
     @painting = Painting.find_by_id(params[:id])
-    unless @painting.exists?
+    unless @painting
       status 404
       return "Can't find that"
     end
