@@ -35,7 +35,35 @@ class Dmfa < Sinatra::Application
   
   get '/contact' do
     slim :contact
-  end  
+  end
+  
+  post '/contact' do
+    # from http://ididitmyway.herokuapp.com/past/2010/12/4/an_email_contact_form_in_sinatra/
+    require 'pony'
+    Pony.mail(
+      :from => params[:name] + "<" + params[:email] + ">",
+      # :to => 'dmattison54+website@gmail.com',
+      :bcc => 'natmattison+dmfa@gmail.com',
+      :to => 'natmattison+dmfa@gmail.com',
+      :subject => params[:name] + " has contacted you",
+      :body => params[:message],
+      :port => '587',
+      :via => :smtp,
+      :via_options => { 
+        :address              => 'smtp.sendgrid.net', 
+        :port                 => '587', 
+        :enable_starttls_auto => true, 
+        :user_name            => ENV['SENDGRID_USERNAME'], 
+        :password             => ENV['SENDGRID_PASSWORD'], 
+        :authentication       => :plain, 
+        :domain               => ENV['SENDGRID_DOMAIN']
+      })
+    redirect '/success' 
+  end
+
+  get '/success' do
+    return "Thanks for reaching out!"
+  end
 
   get '/gallery' do
     @gallery_active = "active"
