@@ -34,6 +34,7 @@ class Dmfa < Sinatra::Application
   end
   
   get '/contact' do
+    @contact_active = "active"
     slim :contact
   end
   
@@ -42,10 +43,9 @@ class Dmfa < Sinatra::Application
     require 'pony'
     Pony.mail(
       :from => params[:name] + "<" + params[:email] + ">",
-      # :to => 'dmattison54+website@gmail.com',
-      :bcc => 'natmattison+dmfa@gmail.com',
-      :to => 'natmattison+dmfa@gmail.com',
-      :subject => params[:name] + " has contacted you",
+      :to => ENV['TO_EMAIL'],
+      :bcc => ENV['BCC_EMAIL'],
+      :subject => params[:name] + " has contacted you from debbiemattisonfineart.com",
       :body => params[:message],
       :port => '587',
       :via => :smtp,
@@ -62,7 +62,8 @@ class Dmfa < Sinatra::Application
   end
 
   get '/success' do
-    return "Thanks for reaching out!"
+    @contact_active = "active"
+    slim :success
   end
 
   get '/gallery' do
