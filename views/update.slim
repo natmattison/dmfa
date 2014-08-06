@@ -1,0 +1,50 @@
+.container
+  h3 Update Painting
+  .row
+    .col-md-6
+      form role="form" action="/painting/update/#{@p.id}" enctype="multipart/form-data" method="post" accept-charset="utf-8"
+        div class="form-group" 
+          label for="name" Name
+          input type="text" class="form-control" id="name" name="name" value="#{@p.name}"
+        div class="form-group" 
+          label for="description" Description
+          textarea rows="5" class="form-control" id="description" name="description" value="#{@p.description}"
+        div class="form-group" 
+          label for="length" Length
+          input type="text" class="form-control" id="length" name="length" value="#{@p.length}"
+        div class="form-group" 
+          label for="width" Width
+          input type="text" class="form-control" id="width" name="width" value="#{@p.width}"
+        div class="form-group"
+          - if @p.sold
+            input type="checkbox" id="sold" name="sold" checked="checked"
+          - else
+            input type="checkbox" id="sold" name="sold"
+          label for="sold" style="margin-left: 5px" Sold?
+        div class="form-group" 
+          label for="medium" Medium
+          select class="form-control" id="medium" name="medium"
+            - @mediums.each do |m|
+              - if m == @p.medium
+                option value="#{m}" selected="selected"
+                  #{m}
+              - else
+                option value="#{m}" 
+                  #{m}
+        div class="form-group" 
+          label for="category" Category
+          select class="form-control" id="category" name="category"
+            - @categories.each do |c|
+              - if c == @p.category
+                option value="#{c}" selected="selected"
+                  #{c}
+              - else
+                option value="#{c}" 
+                  #{c}
+        / div class="form-group" 
+        /   label for="image" Upload Image
+        /   input type="file" id="image" name="image"
+        div class="form-group" 
+          label for="password" Password
+          input type="text" class="form-control" id="password" name="password"
+        button type="submit" class="btn btn-default" Update

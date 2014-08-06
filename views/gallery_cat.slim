@@ -3,4 +3,6 @@ h3 #{@category}
   .painting
     a href="#{@base_url}/detail/#{p.id}"
       img src="#{p.s3_url}" height=300
+    - if p.sold
+      .sold
     p #{p.name}

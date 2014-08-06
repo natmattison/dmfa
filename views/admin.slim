@@ -2,19 +2,22 @@
   h3 Add New Painting
   .row
     .col-md-6
-      form role="form" action="painting/new" enctype="multipart/form-data" method="post" accept-charset="utf-8"
+      form role="form" action="/painting/new" enctype="multipart/form-data" method="post" accept-charset="utf-8"
         div class="form-group" 
           label for="name" Name
           input type="text" class="form-control" id="name" name="name"
         div class="form-group" 
           label for="description" Description
-          input type="text" class="form-control" id="description" name="description"
+          textarea rows="5" class="form-control" id="description" name="description"
         div class="form-group" 
           label for="length" Length
           input type="text" class="form-control" id="length" name="length"
         div class="form-group" 
           label for="width" Width
           input type="text" class="form-control" id="width" name="width"
+        div class="form-group"
+          input type="checkbox" id="sold" name="sold"
+          label for="sold" style="margin-left: 5px" Sold?
         div class="form-group" 
           label for="medium" Medium
           select class="form-control" id="medium" name="medium"
@@ -37,7 +40,7 @@
   h3 Delete Painting
   .row
     .col-md-6
-      form role="form" action="painting/delete" method="post"
+      form role="form" action="/painting/delete" method="post"
         div class="form-group"
           label for="id" Painting Id
           input type="text" class="form-control" id="id" name="id"

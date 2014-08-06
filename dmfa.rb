@@ -128,26 +128,14 @@ class Dmfa < Sinatra::Application
     name = params[:name]
     length = params[:length]
     width = params[:width]
+    sold = params[:sold]
     description = params[:description]
     category = params[:category]
     medium = params[:medium]
     s3_url = s3_url
     # return status 500 unless name && length && width && description && category && medium && s3_url
-    painting = Painting.new(name: name, length: length, width: width, description: description, category: category, medium: medium, s3_url: s3_url)
+    painting = Painting.new(name: name, length: length, width: width, sold: sold, description: description, category: category, medium: medium, s3_url: s3_url)
     painting.save!
-    status 200
-    body 'ok'
-  end
-
-  delete '/painting/:id' do
-    # i hate myself
-    unless params[:password] == ENV['ADMIN_PASS']
-      status 400
-      return 'unauthorized'
-    end
-    p = Painting.find_by_id(params[:id])
-    p.destroy! if p.exists?
-    # todo delete from s3 DERP!!!!!!
     status 200
     body 'ok'
   end
@@ -158,24 +146,40 @@ class Dmfa < Sinatra::Application
       return 'unauthorized'
     end
     p = Painting.find_by_id(params[:id])
-    p.destroy! if p.exists?
+    p.destroy! if p
+    # TODO delete from s3 d'oh
     status 200
     body 'ok'
   end
   
+  get '/update/:id' do
+    @p = Painting.find_by_id(params[:id])
+    unless @p
+      status 400
+      return "can't find that"
+    end
+
+    @mediums = ['Oil', 'Acrylic']
+    @categories = ['Landscape', 'Portrait', 'Still Life', 'Study']
+
+    slim :update
+  end
+  
   post '/painting/update/:id' do
     p = Painting.find_by_id(params[:id])
-    unless p.exists?
+    unless p
       status 400
       return "can't find that"
     end
     p.name = params[:name] ? params[:name] : p.name
     p.length = params[:length] ? params[:length] : p.length
     p.width = params[:width] ? params[:width] : p.width
-    p.s3_url = params[:s3_url] ? params[:s3_url] : p.s3_url
+    # todo: figure out
+    # p.s3_url = params[:s3_url] ? params[:s3_url] : p.s3_url
     p.category = params[:category] ? params[:category] : p.category
     p.medium = params[:medium] ? params[:medium] : p.medium
     p.description = params[:description] ? params[:description] : p.description
+    p.sold = params[:sold] ? params[:sold] : p.sold
     p.save!
     status 200
     body 'updated!'
