@@ -16,3 +16,4 @@ database.yml
 **.orig
 rerun.txt
 pickle-email-*.html
+.DS_Store

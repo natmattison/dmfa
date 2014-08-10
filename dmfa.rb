@@ -8,20 +8,12 @@ require 'aws/s3'
 
 require_relative './models'
 
-# DB_CONFIG = YAML.load_file('database.yml')
-
 class Dmfa < Sinatra::Application
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
-  # set :database, "postgres://#{DB_CONFIG['username']}:#{DB_CONFIG['password']}@#{DB_CONFIG['host']}:#{DB_CONFIG['port']}/#{DB_CONFIG['database']}"
 
   get '/' do
     slim :index
   end
-
-# 404.html  about.html  base.html  commissions.html  contact.html  detail.html  error.html  gallery.html  index.html  reproductions.html  test.html
-# acrylic | oil
-# categories <--
-# 
 
   get '/about' do
     @about_active = "active"
