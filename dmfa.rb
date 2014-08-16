@@ -98,6 +98,8 @@ class Dmfa < Sinatra::Application
   get '/detail/:id' do
     @gallery_active = "active"
     @painting = Painting.find_by_id(params[:id])
+    puts @painting.image_url
+    @url = @painting.image_url
     unless @painting
       status 404
       return "Can't find that"
@@ -136,7 +138,7 @@ class Dmfa < Sinatra::Application
     # )
     # s3_url = "https://#{bucket}.s3.amazonaws.com/#{filename}"
     
-    s3_url = ""
+    s3_url = nil
     
     # u = User.new
     # u.avatar = params[:file]
