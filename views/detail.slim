@@ -4,7 +4,7 @@
       - if @painting.s3_url
         img src="#{@painting.s3_url}" style="max-width: 650px"
       - else
-        img src="#{@painting.image.url}" style="max-width: 650px"
+        img src="#{@painting.image_url}" style="max-width: 650px"
     div.col-md-4
       .title #{@painting.name}
       - if @painting.medium
