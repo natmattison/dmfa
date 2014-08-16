@@ -1,7 +1,10 @@
 .container
   div.row
     div.col-md-8
-      img src="#{@painting.s3_url}" style="max-width: 650px"
+      - if @painting.s3_url
+        img src="#{@painting.s3_url}" style="max-width: 650px"
+      - else
+        img src="#{@painting.image_url(:thumb)}" style="max-width: 650px"
     div.col-md-4
       .title #{@painting.name}
       - if @painting.medium
