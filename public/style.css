@@ -40,3 +40,16 @@
   height: 280px;
   width: 280px;
 }
+
+a {
+  color: #88B6E7;
+}
+
+a:hover {
+  color: #88B6E7;
+}
+
+#sidebar {
+  position: fixed;
+  top: 120px;
+}

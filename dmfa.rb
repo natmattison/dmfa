@@ -76,19 +76,23 @@ class Dmfa < Sinatra::Application
     slim :success
   end
 
+  get '/gallery-old' do
+    @gallery_active = "active"
+    categories = Painting.pluck(:category).uniq
+    @samples = categories.map {|c| [c, Painting.where(category: c).first(4)] }
+    slim :gallery
+  end
+
   get '/gallery' do
     @gallery_active = "active"
-    # @paintings = Painting.all
-    categories = Painting.pluck(:category).uniq
-    @samples = categories.map {|c| [c, Painting.where(category: c).pluck(:fullsize_url).sample] }
-    
-    slim :gallery
+    @categories = Painting.pluck(:category).uniq
+    @samples = @categories.map {|c| [c, Painting.where(category: c)] }
+    slim :gallery_all
   end
 
   get '/gallery/:category' do
     @gallery_active = "active"
     @category = params[:category]
-    # @paintings = Painting.where(category: @category)
     @paintings = Painting.where('category ILIKE ?', @category)
     @category = "Nothing in this category." if @paintings.empty?
     slim :gallery_cat
@@ -97,7 +101,6 @@ class Dmfa < Sinatra::Application
   get '/detail/:id' do
     @gallery_active = "active"
     @painting = Painting.find_by_id(params[:id])
-    puts @painting.image_url
     @url = @painting.image_url
     unless @painting
       status 404
