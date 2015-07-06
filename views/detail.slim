@@ -1,9 +1,11 @@
 .container
   div.row
     div.col-md-8
-      img src="#{@painting.fullsize_url}" style="max-width: 650px"
+      img src="#{@painting.fullsize_url}" style="max-width: 620px"
     div.col-md-4
       .title #{@painting.name}
+      - if @painting.sold
+        i Sold
       - if @painting.medium
         div #{@painting.medium}
       - if @painting.material
