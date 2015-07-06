@@ -1,18 +1,17 @@
 .container
   div.row
     div.col-md-8
-      - if @painting.s3_url
-        img src="#{@painting.s3_url}" style="max-width: 650px"
-      - else
-        img src="#{@painting.image_url}" style="max-width: 650px"
+      img src="#{@painting.fullsize_url}" style="max-width: 650px"
     div.col-md-4
       .title #{@painting.name}
       - if @painting.medium
         div #{@painting.medium}
+      - if @painting.material
+        div #{@painting.material}
       - if @painting.category
         div #{@painting.category}
-      - if @painting.length
-        p #{@painting.length} inches by #{@painting.width} inches
+      - if @painting.height
+        p #{@painting.height}" x #{@painting.width}"
       - if @painting.description
         p #{@painting.description}
       a href="#{@base_url}/gallery/#{@painting.category}" &#8592 return

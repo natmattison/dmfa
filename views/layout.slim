@@ -7,15 +7,6 @@ html
     title Debbie Mattison Fine Art
 
   body
-    div id="fb-root"
-    javascript:
-      (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
     nav class="navbar navbar-default" role="navigation"
     
       div class="container-fluid"
@@ -30,16 +21,11 @@ html
             a href="#{@base_url}/gallery" Gallery
           li class="#{@contact_active}"
             a href="#{@base_url}/contact" Contact
-            
+          li class="#{@contact_active}"
+            a href="https://facebook.com/debbiemattisonfineart" Facebook
+
     div#content
       == yield
-
-    div#footer
-      div class="fb-like" data-href="https://www.facebook.com/debbiemattisonfineart" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"
-      br
-      small 
-        | site by
-        a target="_blank" href="http://natmattison.com"  Nat Mattison
 
   javascript:
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

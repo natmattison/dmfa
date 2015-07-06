@@ -10,20 +10,19 @@ require 'fog'
 require 'mini_magick'
 require 'carrierwave/orm/activerecord'
 
-CarrierWave.configure do |config|
-  bucket = ENV['S3_BUCKET_NAME']
-  config.fog_credentials = {
-    :provider               => 'AWS',                        # required
-    :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],                        # required
-    :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],                        # required
-    :region                 => 'us-west-2',                  # optional, defaults to 'us-east-1'
-    :host                   => 's3-us-west-2.amazonaws.com',             # optional, defaults to nil
-    # :endpoint               => "https://#{bucket}.s3.amazonaws.com" # optional, defaults to nil
-  }
-  config.storage = :fog
-  config.fog_directory  = bucket                     # required
-  config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
-end
+# CarrierWave.configure do |config|
+#   bucket = ENV['S3_BUCKET_NAME']
+#   config.fog_credentials = {
+#     :provider               => 'AWS',                        # required
+#     :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],                        # required
+#     :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],                        # required
+#     :region                 => 'us-west-2',                  # optional, defaults to 'us-east-1'
+#     :host                   => 's3-us-west-2.amazonaws.com',             # optional, defaults to nil
+#   }
+#   config.storage = :fog
+#   config.fog_directory  = bucket                     # required
+#   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
+# end
 
 require_relative './models'
 
@@ -81,7 +80,7 @@ class Dmfa < Sinatra::Application
     @gallery_active = "active"
     # @paintings = Painting.all
     categories = Painting.pluck(:category).uniq
-    @samples = categories.map {|c| [c, Painting.where(category: c).pluck(:s3_url).sample] }
+    @samples = categories.map {|c| [c, Painting.where(category: c).pluck(:fullsize_url).sample] }
     
     slim :gallery
   end
@@ -123,30 +122,7 @@ class Dmfa < Sinatra::Application
     
     bucket = ENV['S3_BUCKET_NAME']
     
-    # AWS::S3::Base.establish_connection!(
-    #   :access_key_id     => ENV['AWS_ACCESS_KEY_ID'],
-    #   :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
-    # )
-    
-    # AWS::S3::DEFAULT_HOST.replace('s3-us-west-2.amazonaws.com')
-    
-    # AWS::S3::S3Object.store(
-    #   filename,
-    #   open(file.path),
-    #   bucket,
-    #   :access => :public_read
-    # )
-    # s3_url = "https://#{bucket}.s3.amazonaws.com/#{filename}"
-    
     s3_url = nil
-    
-    # u = User.new
-    # u.avatar = params[:file]
-    # u.avatar = File.open('somewhere')
-    # u.save!
-    # u.avatar.url # => '/url/to/file.png'
-    # u.avatar.current_path # => 'path/to/file.png'
-    # u.avatar.identifier # => 'file.png'
 
     name = params[:name]
     length = params[:length]
@@ -157,7 +133,6 @@ class Dmfa < Sinatra::Application
     medium = params[:medium]
     image = params[:image]
     s3_url = s3_url
-    # return status 500 unless name && length && width && description && category && medium && s3_url
     painting = Painting.new(name: name, length: length, width: width, sold: sold, description: description, category: category, medium: medium, s3_url: s3_url, image: image)
     painting.save!
     status 200

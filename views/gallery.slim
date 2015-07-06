@@ -1,6 +1,6 @@
 .container
   div style="margin: 10px auto"
-  - @samples.each do |c, s3_url|
+  - @samples.each do |c, thumbnail_url|
     a href="#{@base_url}/gallery/#{c}"
-      div style="display: inline-block; margin: 30px; height: 300px; width: 500px; background: url('#{s3_url}'); background-repeat: no-repeat; background-position: center"
+      div style="display: inline-block; margin: 30px; height: 300px; width: 500px; background: url('#{thumbnail_url}'); background-repeat: no-repeat; background-position: center"
         p style="text-align: center; font-size: 40px; padding: 120px; color: white; text-shadow: 2px 2px rgb(50, 50, 50)" #{c}

@@ -13,10 +13,10 @@ gem 'logging'
 gem 'rest-client'
 gem 'httparty'
 gem 'rake'
-gem 'pg'
 gem 'paperclip'
 gem 'paperclip-rack'
 gem 'aws-s3'
 gem 'carrierwave'
 gem "fog", "~> 1.3.1"
 gem "mini_magick"
+gem "pg"

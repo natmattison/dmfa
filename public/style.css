@@ -15,7 +15,11 @@
 
 .painting {
   float: left;
-  margin: 10px 15px;
+  margin: 15px 20px;
+}
+
+.painting p {
+  margin: 5px 0px;
 }
 
 .sold {
@@ -30,4 +34,9 @@
   float: right;
 }
 
-
+.gal-image {
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 280px;
+  width: 280px;
+}
