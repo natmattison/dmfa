@@ -122,3 +122,15 @@ img.detail-img {
   max-width: 650px;
   margin: 0px 20px;
 }
+
+.next-prev {
+  font-size: 36px;
+  color: #777;
+  position: relative;
+  top: 250px;
+}
+
+.next-prev:hover {
+  color: #333;
+  text-decoration: none;
+}

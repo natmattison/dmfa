@@ -1,8 +1,11 @@
 .container
   div.row
-    div.col-md-8
+    div.col-md-1
+      - if @painting.previous
+        a.next-prev href="#{@base_url}/detail/#{@painting.previous}" &#10094;
+    div.col-md-7
       img.detail-img src="#{@painting.fullsize_url}"
-    div.col-md-4
+    div.col-md-3
       .title #{@painting.name}
       - if @painting.sold
         i Sold
@@ -17,3 +20,7 @@
       - if @painting.description
         p #{@painting.description}
       a href="#{@base_url}/gallery##{@painting.category.downcase}" &#8592 return
+    div.col-md-1
+      - if @painting.next
+        a.next-prev href="#{@base_url}/detail/#{@painting.next}" &#10095;
+
