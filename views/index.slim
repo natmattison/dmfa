@@ -3,27 +3,19 @@
     <!-- Indicators -->
     ol class="carousel-indicators"
       li data-target="#carousel-slider" data-slide-to="0" class="active"
-      li data-target="#carousel-slider" data-slide-to="1"
-      li data-target="#carousel-slider" data-slide-to="2"
-      li data-target="#carousel-slider" data-slide-to="3"
+      - for i in 1..@showcases.size
+        li data-target="#carousel-slider" data-slide-to="#{i}"
     
     <!-- Wrapper for slides -->
     div class="carousel-inner" role="listbox"
       div class="item active"
-        a href="#{@base_url}/detail/3000"
-          img src="https://s3-us-west-2.amazonaws.com/dmfa-paintings/Sisters+small+file.JPG" alt=""
+        a href="#{@base_url}/detail/#{@first.id}"
+          img src="#{@first.fullsize_url}" alt=""
 
-      div class="item"
-        a href="#{@base_url}/detail/2012"
-          img src="https://dl.dropboxusercontent.com/s/lcbave5h1t3tdg1/After%20the%20Harvest%20%2011%20x%2014%20acrylic.jpg?dl=0" alt=""
-
-      div class="item"
-        a href="#{@base_url}/detail/2003"
-          img src="https://dl.dropboxusercontent.com/s/s3rcynjcihhbbqa/lavendar%20fields%207.2015%208%20x%2010.jpg?dl=0" alt=""
-
-      div class="item"
-        a href="#{@base_url}/detail/1000"
-          img src="https://s3-us-west-2.amazonaws.com/dmfa-paintings/Carrie+%233++24+x+30.jpg" alt=""
+      - @showcases.each do |painting|
+        div class="item"
+          a href="#{@base_url}/detail/#{painting.id}"
+            img src="#{painting.fullsize_url}" alt=""
 
     <!-- Controls -->
     a class="left carousel-control" href="#carousel-slider" role="button" data-slide="prev"

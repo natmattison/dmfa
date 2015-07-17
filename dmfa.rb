@@ -30,6 +30,8 @@ class Dmfa < Sinatra::Application
   ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
 
   get '/' do
+    @showcases = Painting.where(showcase: true)
+    @first = @showcases.pop
     slim :index
   end
 
