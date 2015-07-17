@@ -1,28 +1,36 @@
 doctype html
 html
   head
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    link rel="stylesheet" href="/style.css" type="text/css"
     script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
-    link href="/bootstrap.min.css" rel="stylesheet" type="text/css"
-    link href="/style.css" rel="stylesheet" type="text/css"
+    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+    link href='http://fonts.googleapis.com/css?family=Satisfy|Open+Sans' rel='stylesheet' type='text/css'
     title Debbie Mattison Fine Art
 
   body
-    nav class="navbar navbar-default" role="navigation"
-    
+    nav class="navbar navbar-default"
       div class="container-fluid"
-      div class="navbar-header"
-        a class="navbar-brand" href="#{@base_url}/" Debbie Mattison Fine Art
+        div class="navbar-header"
+          button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
+            span class="sr-only" Toggle navigation
+            span class="icon-bar"
+            span class="icon-bar"
+            span class="icon-bar"
+          a class="navbar-brand" href="#{@base_url}/"
+            .name Debbie Mattison
+            .fine-art Fine Art
 
-      div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
-        ul class="nav navbar-nav"
-          li class="#{@about_active}"
-            a href="#{@base_url}/about" About
-          li class="#{@gallery_active}"
-            a href="#{@base_url}/gallery" Gallery
-          li class="#{@contact_active}"
-            a href="#{@base_url}/contact" Contact
-          li class="#{@contact_active}"
-            a href="https://facebook.com/debbiemattisonfineart" Facebook
+        div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+          ul class="nav navbar-nav"
+            li class="#{@about_active}"
+              a href="#{@base_url}/about" About
+            li class="#{@gallery_active}"
+              a href="#{@base_url}/gallery" Gallery
+            li class="#{@contact_active}"
+              a href="#{@base_url}/contact" Contact
+            li class="#{@contact_active}"
+              a href="https://facebook.com/debbiemattisonfineart" Facebook
 
     div#content
       == yield

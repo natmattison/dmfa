@@ -1,7 +1,7 @@
 .container
   div.row
     div.col-md-8
-      img src="#{@painting.fullsize_url}" style="max-width: 620px"
+      img.detail-img src="#{@painting.fullsize_url}"
     div.col-md-4
       .title #{@painting.name}
       - if @painting.sold
