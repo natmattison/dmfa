@@ -16,4 +16,4 @@
         p #{@painting.height}" x #{@painting.width}"
       - if @painting.description
         p #{@painting.description}
-      a href="#{@base_url}/gallery" &#8592 return
+      a href="#{@base_url}/gallery##{@painting.category.downcase}" &#8592 return
