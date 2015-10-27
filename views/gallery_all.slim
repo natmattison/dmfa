@@ -5,11 +5,11 @@
         - @categories.each do |c|
           p
             a href="##{c.downcase}"
-              | #{c}
+              | #{c.capitalize}
     .col-md-10
       - @samples.each do |c, paintings|
         div id="#{c.downcase}" style="padding-top: 10px"
-          h4 #{c}
+          h4 #{c.capitalize}
           div.row
             - paintings.each do |p|
               .painting
