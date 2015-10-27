@@ -11,14 +11,10 @@
         i Sold
       - if @painting.medium
         div #{@painting.medium}
-      - if @painting.material
-        div #{@painting.material}
       - if @painting.category
         div #{@painting.category}
       - if @painting.height
         p #{@painting.height}" x #{@painting.width}"
-      - if @painting.description
-        p #{@painting.description}
       a href="#{@base_url}/gallery##{@painting.category.downcase}" &#8592 return
     div.col-md-1
       - if @painting.next
