@@ -10,9 +10,9 @@
       - if @painting.sold
         i Sold
       - if @painting.medium
-        div #{@painting.medium}
+        div #{@painting.medium.capitalize}
       - if @painting.category
-        div #{@painting.category}
+        div #{@painting.category.capitalize}
       - if @painting.height
         p #{@painting.height}" x #{@painting.width}"
       a href="#{@base_url}/gallery##{@painting.category.downcase}" &#8592 return
