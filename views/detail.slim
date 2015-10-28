@@ -7,14 +7,15 @@
       img.detail-img src="#{@painting.fullsize_url}"
     div.col-md-3
       .title #{@painting.name}
-      - if @painting.sold
-        i Sold
       - if @painting.medium
         div #{@painting.medium.capitalize}
-      - if @painting.category
-        div #{@painting.category.capitalize}
       - if @painting.height
-        p #{@painting.height}" x #{@painting.width}"
+        div #{@painting.height}" x #{@painting.width}"
+      - if @painting.price
+        div $#{@painting.price}
+      - if @painting.sold
+        div
+          i Sold
       a href="#{@base_url}/gallery##{@painting.category.downcase}" &#8592 return
     div.col-md-1
       - if @painting.next

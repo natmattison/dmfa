@@ -16,8 +16,8 @@ csv_hash.each do |row|
     description = row['description'] || ""
     height = row['height']
     width = row['width']
-    sold = row['price'] != nil
-    category = row['category']
+    sold = row['sold'] == 'y'
+    category = row['category'].downcase
     medium = row['medium'].downcase
     thumbnail_url = row['thumbnail_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
     fullsize_url = row['fullsize_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
