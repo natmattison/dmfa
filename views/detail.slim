@@ -12,7 +12,10 @@
       - if @painting.height
         div #{@painting.height}" x #{@painting.width}"
       - if @painting.price
-        div $#{@painting.price}
+        - if @painting.category == 'notecard'
+          div 5 for $#{@painting.price}
+        - else
+          div $#{@painting.price}
       - if @painting.sold
         div
           i Sold

@@ -10,20 +10,6 @@ require 'fog'
 require 'mini_magick'
 require 'carrierwave/orm/activerecord'
 
-# CarrierWave.configure do |config|
-#   bucket = ENV['S3_BUCKET_NAME']
-#   config.fog_credentials = {
-#     :provider               => 'AWS',                        # required
-#     :aws_access_key_id      => ENV['AWS_ACCESS_KEY_ID'],                        # required
-#     :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],                        # required
-#     :region                 => 'us-west-2',                  # optional, defaults to 'us-east-1'
-#     :host                   => 's3-us-west-2.amazonaws.com',             # optional, defaults to nil
-#   }
-#   config.storage = :fog
-#   config.fog_directory  = bucket                     # required
-#   config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}  # optional, defaults to {}
-# end
-
 require_relative './models'
 
 class Dmfa < Sinatra::Application
@@ -88,6 +74,8 @@ class Dmfa < Sinatra::Application
   get '/gallery' do
     @gallery_active = "active"
     @categories = Painting.pluck(:category).uniq.sort!
+    @categories.delete("Notecards")
+    @categories.append("Notecards")
     @samples = @categories.map {|c| [c, Painting.where(category: c)] }
     slim :gallery_all
   end

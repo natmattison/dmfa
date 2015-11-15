@@ -22,6 +22,9 @@ csv_hash.each do |row|
     thumbnail_url = row['thumbnail_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
     fullsize_url = row['fullsize_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
     price = row['price'] || nil
+    if price.include?("$")
+       price = price.sub(/.*\$/, '') 
+    end
     showcase = row['showcase?'] == 'y'
 
     puts 'INSERT INTO paintings VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)' % [id, name, description, height, width, sold, category, medium, thumbnail_url, fullsize_url, price, showcase]
