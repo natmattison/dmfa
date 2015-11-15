@@ -9,7 +9,10 @@
     .col-md-10
       - @samples.each do |c, paintings|
         div id="#{c.downcase}" style="padding-top: 10px"
-          h4 #{c.capitalize}
+          - if c == 'notecard'
+            h4 #{c.capitalize}s
+          - else
+            h4 #{c.capitalize}
           div.row
             - paintings.each do |p|
               .painting

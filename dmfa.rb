@@ -74,8 +74,8 @@ class Dmfa < Sinatra::Application
   get '/gallery' do
     @gallery_active = "active"
     @categories = Painting.pluck(:category).uniq.sort!
-    @categories.delete("Notecards")
-    @categories.append("Notecards")
+    @categories.delete("notecard")
+    @categories.append("notecard")
     @samples = @categories.map {|c| [c, Painting.where(category: c)] }
     slim :gallery_all
   end
