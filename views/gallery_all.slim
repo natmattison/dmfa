@@ -5,7 +5,10 @@
         - @categories.each do |c|
           p
             a href="##{c.downcase}"
-              | #{c.capitalize}
+              - if c == 'notecard'
+                | #{c.capitalize}s
+              - else
+                | #{c.capitalize}
     .col-md-10
       - @samples.each do |c, paintings|
         div id="#{c.downcase}" style="padding-top: 10px"

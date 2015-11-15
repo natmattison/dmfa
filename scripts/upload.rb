@@ -22,7 +22,7 @@ csv_hash.each do |row|
     thumbnail_url = row['thumbnail_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
     fullsize_url = row['fullsize_url'].gsub('www.dropbox.com', 'dl.dropboxusercontent.com')
     price = row['price'] || nil
-    if price.include?("$")
+    if price && price.include?("$")
        price = price.sub(/.*\$/, '') 
     end
     showcase = row['showcase?'] == 'y'

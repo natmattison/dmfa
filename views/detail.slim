@@ -7,7 +7,7 @@
       img.detail-img src="#{@painting.fullsize_url}"
     div.col-md-3
       .title #{@painting.name}
-      - if @painting.medium && @painting.category != 'notecard'
+      - if @painting.medium
         div #{@painting.medium.capitalize}
       - if @painting.height
         div #{@painting.height}" x #{@painting.width}"
